@@ -10,20 +10,20 @@ metadata:
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
 spec:
   rules:
-  - host: chat-tws.com
+  - host: sushant-chat.com
     http:
       paths:
       - pathType: Prefix
         path: "/"
         backend:
-          service:
+          service: 
             name: frontend
             port: 
               number: 80
       - pathType: Prefix
         path: "/api"
         backend:
-          service:
+          service: 
             name: backend
             port: 
               number: 5001

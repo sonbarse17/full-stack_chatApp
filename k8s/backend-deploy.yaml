@@ -1,10 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: backend-deployment
+  name: backend
   namespace: chat-app
 spec:
-  replicas: 1
   selector:
     matchLabels:
       app: backend
@@ -12,15 +11,19 @@ spec:
     metadata:
       name: backend-pod
       namespace: chat-app
-      labels: 
+      labels:
         app: backend
     spec:
       containers:
-      - name: chatapp-backend
-        image: trainwithshubham/chatapp-backend:latest
+      - name: backend-container
+        image: sonbarse17/1-backend
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
         ports:
         - containerPort: 5001
-        env:
+        env: 
         - name: NODE_ENV
           value: production
         - name: MONGODB_URI
@@ -28,7 +31,7 @@ spec:
         - name: JWT_SECRET
           valueFrom:
             secretKeyRef:
-              name: chatapp-secrets
+              name: chat-app-secret
               key: jwt 
         - name: PORT
           value: "5001"
